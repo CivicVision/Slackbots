@@ -8,7 +8,7 @@ There is just one command for now:
 
 ```
 /blockspring toggl-weekly
-`` `
+```
 
 It returns the current weeks total:
 
