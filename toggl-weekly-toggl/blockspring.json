@@ -1,0 +1,35 @@
+{
+  "id": "toggl",
+  "user": "milafrerichs",
+  "title": "Toggl Weekly Report",
+  "description": "# How To Use This Function\r\n\r\n1. Add two secrets: Toggl Key and Toggl Workspace\r\n2. Add Slack Integration\r\n3. Have fun\r\n\r\n# Result\r\nAll Projects Weekly total: ~ 43 h, 46 min\r\n\r\nProject: Project Name, Client\r\nWeekly Total: 10 h, 15 min\r\n\r\nProject: Project Name, Client\r\nWeekly Total: 23 h, 31 min\r\n\r\n# Commands\r\n\r\n`/blockspring toggl-weekly`\r\nWeekly Summary\r\n\r\n`/blockspring toggl-w-projects <project_ids>`\r\nGet weekly summary of your projects. Comma separated list of projects to only show the specified projects\r\n\r\n\r\n## Code\r\n\r\n[GitHub](https://github.com/CivicVision/Slackbots/tree/master/toggl-weekly)",
+  "parameters": [
+    {
+      "label": "Client Ids",
+      "name": "client_ids",
+      "type": "text",
+      "help_text": "",
+      "placeholder": "",
+      "optional": true,
+      "group": null,
+      "options": null,
+      "default": ""
+    },
+    {
+      "label": "Project Ids",
+      "name": "project_ids",
+      "type": "text",
+      "help_text": "",
+      "placeholder": "",
+      "optional": true,
+      "group": null,
+      "options": null,
+      "default": ""
+    }
+  ],
+  "is_public": true,
+  "is_open_source": true,
+  "language": "rb",
+  "updated_at": 1455959744,
+  "created_at": 1455796897
+}
