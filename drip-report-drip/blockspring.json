@@ -1,0 +1,33 @@
+{
+  "id": "drip",
+  "user": "milafrerichs",
+  "title": "Drip Report",
+  "description": "# How To Use This Function\r\n\r\n1. Add two secrets: Drip Key and Drip Account ID\r\n2. Add Slack Integration\r\n3. Have fun",
+  "parameters": [
+    {
+      "label": "Type of Report",
+      "name": "type",
+      "type": "text",
+      "help_text": "e.g. campaigns",
+      "placeholder": "",
+      "optional": true,
+      "group": null,
+      "options": {
+        "type": "static",
+        "allow_create": false,
+        "static": [
+          {
+            "name": "Campaigns",
+            "value": "campaigns"
+          }
+        ]
+      },
+      "default": ""
+    }
+  ],
+  "is_public": true,
+  "is_open_source": true,
+  "language": "rb",
+  "updated_at": 1455964208,
+  "created_at": 1455962033
+}
