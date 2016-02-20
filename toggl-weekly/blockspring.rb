@@ -11,7 +11,7 @@ def humanize_hours(milliseconds)
     "#{hours} h, #{min} min"
 end
 
-def webhook(team_domain, service_id, token, user_name, team_id, user_id, channel_id, timestamp, channel_name, text, trigger_word, raw_text,toggl_key,workspace_id)
+def webhook(team_domain, service_id, token, user_name, team_id, user_id, channel_id, timestamp, channel_name, text, trigger_word, raw_text, toggl_key, workspace_id, client_ids, project_ids)
 
     d = Date.today
     start_of_the_week = week_start(d,1).iso8601
@@ -19,13 +19,19 @@ def webhook(team_domain, service_id, token, user_name, team_id, user_id, channel
     r = RestClient.get(url)
     results = JSON.parse(r)
     hours = humanize_hours(results["total_grand"])
-    response = "Weekly total: ~ #{hours}"
+		projects = results["data"].map do |project|
+        result = "Project: #{project["title"]["project"]}, #{project["title"]["client"]} \n"
+        result += "Weekly Total: #{humanize_hours(project["totals"][7])} \n"
+        result
+    end
+
+    response = "Weekly total: ~ #{hours} \n\n #{projects.join("\n")}"
 
     return {
         text: response,  # send a text response (replies to channel if not blank)
         attachments: [], # add attatchments: https://api.slack.com/docs/attachments
         username: "Toggl Weekly Report",    # overwrite configured username (ex: MyCoolBot)
-        icon_url: "",    # overwrite configured icon (ex: https://mydomain.com/some/image.png
+        icon_url: "http://blog.toggl.com/wp-content/uploads/2015/04/toggl-button-light.png",    # overwrite configured icon (ex: https://mydomain.com/some/image.png
         icon_emoji: "",  # overwrite configured icon (ex: :smile:)
     }
 end
@@ -44,6 +50,8 @@ block = lambda do |request, response|
     trigger_word = request.params['trigger_word']
     toggl_key = request.params['TOGGL_KEY']
     workspace_id = request.params['workspace_id']
+		client_ids = request.params['client_ids']
+    project_ids = request.params['project_ids']
 
     # ignore all bot messages
     return if user_id == 'USLACKBOT'
@@ -54,7 +62,7 @@ block = lambda do |request, response|
     end
 
     # Execute bot function
-    output = webhook(team_domain, service_id, token, user_name, team_id, user_id, channel_id, timestamp, channel_name, text, trigger_word, raw_text,toggl_key,workspace_id)
+    output = webhook(team_domain, service_id, token, user_name, team_id, user_id, channel_id, timestamp, channel_name, text, trigger_word, raw_text, toggl_key, workspace_id, client_ids, project_ids)
 
     # set any keys that aren't blank
     output.keys.each do |k|
